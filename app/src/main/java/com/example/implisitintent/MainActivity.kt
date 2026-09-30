@@ -2,6 +2,7 @@ package com.example.implisitintent
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.AlarmClock
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -35,14 +36,41 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        val _btnSetAlarm = findViewById<Button>(R.id.btnSetAlarm)
+
+        _btnSetAlarm.setOnClickListener {
+            val _alarmIntent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
+                putExtra(AlarmClock.EXTRA_MESSAGE, "COBA ALARM")
+                putExtra(AlarmClock.EXTRA_HOUR, 20)
+                putExtra(AlarmClock.EXTRA_MINUTES, 10)
+                putExtra(AlarmClock.EXTRA_SKIP_UI, true)
+            }
+
+            startActivity(_alarmIntent)
+        }
+
+        val _btnSetTimer = findViewById<Button>(R.id.btnSetTimer)
+
+        _btnSetTimer.setOnClickListener {
+            val _timerIntent = Intent(AlarmClock.ACTION_SET_TIMER).apply {
+                putExtra(AlarmClock.EXTRA_MESSAGE, "COBA ALARM")
+                putExtra(AlarmClock.EXTRA_LENGTH, 20)
+                putExtra(AlarmClock.EXTRA_SKIP_UI, true)
+            }
+
+            startActivity(_timerIntent)
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
             v.setPadding(
                 systemBars.left,
                 systemBars.top,
                 systemBars.right,
                 systemBars.bottom
             )
+
             insets
         }
     }
